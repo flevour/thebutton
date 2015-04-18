@@ -81,10 +81,11 @@
         $.request = function(request_type, n, e) {
           // r.thebutton._websocket.trigger("message:expired", { seconds_left: seconds_left });
           clearInterval(interval_id);
+
           $("#flair")
             .text(n.seconds + "s")
             .removeClass('flair-no-press')
-            .addClass('flair-press-' + (parseInt(parseInt(n.seconds) / 10) + 1));
+            .addClass('flair-press-' + (parseInt((parseInt(n.seconds) - 2) / 10) + 1));
 
         }
       });
