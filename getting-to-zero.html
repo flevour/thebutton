@@ -6,29 +6,12 @@
     <title>Buttons</title>
     <link rel="stylesheet" href="./thebutton.css">
     <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script src="./thebutton.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <style>
     .thebutton-counter {
       margin-top: 0 !important;
     }
     </style>
-    <script>
-      $(function() {
-        $('body').on('thebutton:init', function() {
-          var seconds_left = 60;
-          var interval_id = setInterval(function(){
-              r.thebutton._websocket.trigger("message:ticking", { seconds_left: seconds_left });
-              seconds_left -= 1;
-              if (seconds_left < 0) {
-                  clearInterval(interval_id);
-                  r.thebutton._websocket.trigger("message:expired", { seconds_elapsed: 0});
-                  window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-              }
-          }, 1000)
-        });
-      });
-    </script>
   </head>
   <body>
     <div class="thebutton-wrap active">
@@ -66,6 +49,23 @@
       ga('create', 'UA-129261-21', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script src="./thebutton.js"></script>
+    <script>
+      $(function() {
+        $('body').on('thebutton:init', function() {
+          var seconds_left = 60;
+          var interval_id = setInterval(function(){
+              r.thebutton._websocket.trigger("message:ticking", { seconds_left: seconds_left });
+              seconds_left -= 1;
+              if (seconds_left < 0) {
+                  clearInterval(interval_id);
+                  r.thebutton._websocket.trigger("message:expired", { seconds_elapsed: 0});
+                  window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+              }
+          }, 1000)
+        });
+      });
     </script>
   </body>
 </html>

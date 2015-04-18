@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="./thebutton.css">
     <link rel="stylesheet" href="./thebutton-extra.css">
     <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script src="./thebutton.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <style>
     .flair {
@@ -20,29 +19,6 @@
       margin: 0 auto;
     }
     </style>
-    <script>
-      var seconds_left = 60, interval_id;
-      $(function() {
-        $('body').on('thebutton:init', function() {
-          interval_id = setInterval(function(){
-              r.thebutton._websocket.trigger("message:ticking", { seconds_left: seconds_left });
-              seconds_left -= 1;
-              if (seconds_left < 0) {
-                  seconds_left = 60;
-              }
-          }, 1000)
-        });
-        $.request = function(request_type, n, e) {
-          // r.thebutton._websocket.trigger("message:expired", { seconds_left: seconds_left });
-          clearInterval(interval_id);
-          $("#flair")
-            .text(n.seconds + "s")
-            .removeClass('flair-no-press')
-            .addClass('flair-press-' + (parseInt(parseInt(n.seconds) / 10) + 1));
-
-        }
-      });
-    </script>
   </head>
   <body>
     <div class="thebutton-wrap active">
@@ -87,5 +63,30 @@
       ga('send', 'pageview');
 
     </script>
+    <script src="./thebutton.js"></script>
+    <script>
+      var seconds_left = 60, interval_id;
+      $(function() {
+        $('body').on('thebutton:init', function() {
+          interval_id = setInterval(function(){
+              r.thebutton._websocket.trigger("message:ticking", { seconds_left: seconds_left });
+              seconds_left -= 1;
+              if (seconds_left < 0) {
+                  seconds_left = 60;
+              }
+          }, 1000)
+        });
+        $.request = function(request_type, n, e) {
+          // r.thebutton._websocket.trigger("message:expired", { seconds_left: seconds_left });
+          clearInterval(interval_id);
+          $("#flair")
+            .text(n.seconds + "s")
+            .removeClass('flair-no-press')
+            .addClass('flair-press-' + (parseInt(parseInt(n.seconds) / 10) + 1));
+
+        }
+      });
+    </script>
+
   </body>
 </html>
